@@ -24,7 +24,12 @@ class _ApplicationState extends State<Application> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'Nunito'),
+      theme: ThemeData(
+        fontFamily: 'Nunito',
+        inputDecorationTheme: const InputDecorationTheme(
+          contentPadding: EdgeInsets.only(bottom: 0),
+        )
+      ),
       home: const SplashScreen(),
     );
   }

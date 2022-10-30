@@ -9,6 +9,7 @@ import 'package:trackmymoney/services/api_manager.dart';
 import 'package:trackmymoney/services/google_api.dart';
 import 'package:trackmymoney/services/helpers.dart';
 import 'package:trackmymoney/services/local_storage.dart';
+import 'package:trackmymoney/widgets/user_suggestion.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -90,7 +91,43 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              const SizedBox(height: 500)
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: const UserSuggestion()
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: const [
+                    Text("ABOUT", style: TextStyle(fontSize: 18)),
+                    ListTile(
+                      leading: Image(image: AssetImage("assets/images/logo.png")),
+                      title: Text("Track My Money"),
+                      subtitle: Text("Track My Money is an easy-to-use daily income, expanse and debt tracker mobile app for everyone. It can be used for both individual and/or a group of people. And it's totally free of cost."),
+                    ),
+                    SizedBox(height: 5),
+                    ListTile(
+                      title: Text("Individual"),
+                      subtitle: Text("With this application you can keep track of your all individual incomes, expenses and debts."),
+                    ),
+                    SizedBox(height: 5),
+                    ListTile(
+                      title: Text("Group"),
+                      subtitle: Text("With this application you can keep track of all the contributions and bills for a group of people."),
+                    ),
+                    Divider(thickness: 1, height: 40),
+                    Text("WORD FROM DEVELOPER", style: TextStyle(fontSize: 18)),
+                    ListTile(
+                      leading: Image(image: AssetImage("assets/images/developer.png")),
+                      title: Text("Don't like ads?"),
+                      subtitle: Text("So does the developer. That's why this application is ad-free. So no advertisement, no annoying pop-ups."),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 100),
             ],
           ),
         )
