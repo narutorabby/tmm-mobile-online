@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:trackmymoney/pages/splash.dart';
@@ -25,9 +24,8 @@ class _ApplicationState extends State<Application> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      routes: {
-        '/': (context) => const SplashScreen(),
-      },
+      theme: ThemeData(fontFamily: 'Nunito'),
+      home: const SplashScreen(),
     );
   }
 }

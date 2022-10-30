@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -33,21 +32,73 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: const [
-            SizedBox(height: 20),
-            Center(child: Text("Track My Money", style: TextStyle(fontSize: 22))),
-          ],
-        ),
+      backgroundColor: Colors.white,
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              expandedHeight: 240.0,
+              pinned: true,
+              title: const Text("Track My Money", style: TextStyle(fontWeight: FontWeight.bold)),
+              flexibleSpace: FlexibleSpaceBar(
+                background: Container(
+                  color: Colors.white,
+                  child: Image.asset(
+                    "assets/images/landing_bg_1.jpg",
+                    fit: BoxFit.cover,
+                    alignment: Alignment.topLeft,
+                  ),
+                ),
+              ),
+            ),
+          ];
+        },
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Column(
+                  children: const [
+                    ListTile(
+                      leading: Icon(FontAwesomeIcons.user, size: 30, color: Colors.blueAccent),
+                      title: Text("Individual"),
+                      subtitle: Text("Track individual incomes, expenses and debts!"),
+                    ),
+                    ListTile(
+                      leading: Icon(FontAwesomeIcons.users, size: 30, color: Colors.blueAccent),
+                      title: Text("Group"),
+                      subtitle: Text("Track group contributions and bills!"),
+                    ),
+                    ListTile(
+                      leading: Icon(FontAwesomeIcons.globe, size: 30, color: Colors.blueAccent),
+                      title: Text("Online"),
+                      subtitle: Text("Watch your information from anywhere!"),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                height: 260,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/landing_bg_2.jpg"),
+                    fit: BoxFit.cover,
+                    alignment: Alignment.topLeft
+                  ),
+                ),
+              ),
+              const SizedBox(height: 500)
+            ],
+          ),
+        )
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          googleToken();
-        },
-        icon: const Icon(FontAwesomeIcons.google, size: 20),
-        label: const Text("Continue with Google"),
+        icon: const Icon(FontAwesomeIcons.google),
+        label: const Text("Continue with Google", style: TextStyle(fontSize: 16)),
+        onPressed: googleToken,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
