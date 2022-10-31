@@ -25,7 +25,7 @@ class User {
   int id;
   String name;
   String email;
-  String googleId;
+  double googleId;
   String mobile;
   String avatar;
   dynamic createdAt;
@@ -43,7 +43,7 @@ class User {
     createdAt: json["created_at"],
     updatedAt: json["updated_at"],
     deletedAt: json["deleted_at"],
-    token: json["token"],
+    token: json.containsKey("token") ? json["token"] : "",
   );
 
   Map<String, dynamic> toJson() => {

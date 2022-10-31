@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:trackmymoney/models/user.dart';
 import 'package:trackmymoney/pages/home.dart';
+import 'package:trackmymoney/pages/root.dart';
 import 'package:trackmymoney/services/helpers.dart';
+import 'package:trackmymoney/services/local_storage.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -64,10 +69,20 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     bool internet = await Helpers.checkConnectivity();
     if(internet){
       await Future.delayed(const Duration(seconds: 2));
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home()));
+      localData();
     }
     else{
       Helpers.showToast(fToast, "error", "No internet");
+    }
+  }
+
+  Future<void> localData() async {
+    String? currentSession = await LocalStorage.getStorageData("current_session");
+    if(currentSession != null && User.fromJson(jsonDecode(currentSession)).token.isNotEmpty){
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Root()));
+    }
+    else {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home()));
     }
   }
 }

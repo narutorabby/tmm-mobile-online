@@ -158,7 +158,7 @@ class _HomeState extends State<Home> {
       "token": token,
     };
     ApiManager apiManager = ApiManager();
-    BasicResponse basicResponse = await apiManager.apiCall("POST", "authenticate", null, null, inputData);
+    BasicResponse basicResponse = await apiManager.apiCall("POST", "authenticate", null, inputData);
 
     if(basicResponse.response == "success"){
       Map<String, dynamic> userMap = basicResponse.data;

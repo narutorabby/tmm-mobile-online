@@ -6,12 +6,11 @@ class ApiManager {
   late BasicResponse basicResponse;
   late Response response;
 
-  Future<BasicResponse> apiCall(method, url, token, params, inputData) async {
+  Future<BasicResponse> apiCall(method, url, params, inputData) async {
 
     Dio dio = Dio();
     dio.options.baseUrl = "http://192.168.0.100/track-my-money/track-my-money/public/api/";
-    // dio.options.baseUrl = "https://nishcinto.com/api/";
-    token = token != null ? "Bearer " + token : "";
+    var token = await Helpers.getToken();
     dio.options.headers = {
       'Authorization': token,
       'Content-type': "application/json; charset=UTF-8",

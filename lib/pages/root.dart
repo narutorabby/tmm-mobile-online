@@ -13,86 +13,102 @@ class Root extends StatefulWidget {
   _RootState createState() => _RootState();
 }
 
-class _RootState extends State<Root> {
-  int _selectedIndex = 0;
+class _RootState extends State<Root> with TickerProviderStateMixin {
+  late TabController tabController;
 
-  static final List<Widget> _widgetOptions = <Widget>[
-    const Dashboard(),
-    const Personal(),
-    const Group(),
-    const Invitations(),
-    const Profile(),
-  ];
+  @override
+  void initState() {
+    tabController = TabController(vsync: this, length: 5);
+    tabController.addListener(handleTabSelection);
+    super.initState();
+  }
+
+  void handleTabSelection() {
+    setState(() {
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Scaffold(
-        extendBody: true,
-        resizeToAvoidBottomInset: false,
-        body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          elevation: 10,
-          backgroundColor: Colors.white,
-          currentIndex: _selectedIndex,
-          selectedItemColor: Theme.of(context).primaryColor,
-          unselectedItemColor: Colors.grey,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home),
-              label: 'Dashboard',
+      onWillPop: onWillPop,
+      child: DefaultTabController(
+        length: 5,
+        child: Scaffold(
+            appBar: AppBar(
+              elevation: 1,
               backgroundColor: Colors.white,
+              flexibleSpace: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TabBar(
+                    controller: tabController,
+                    indicatorColor: Colors.grey.shade700,
+                    tabs: [
+                      Tab(
+                        icon: Icon(
+                          tabController.index == 0 ? Icons.home_rounded : Icons.home_outlined,
+                          color: Colors.grey.shade700,
+                          size: 30,
+                        )
+                      ),
+                      Tab(
+                        icon: Icon(
+                          tabController.index == 1 ? Icons.person_rounded : Icons.person_outline_rounded,
+                          color: Colors.grey.shade700,
+                          size: 30,
+                        )
+                      ),
+                      Tab(
+                        icon: Icon(
+                          tabController.index == 2 ? Icons.people_alt_rounded : Icons.people_alt_outlined,
+                          color: Colors.grey.shade700,
+                          size: 30,
+                        )
+                      ),
+                      Tab(
+                        icon: Icon(
+                          tabController.index == 3 ? Icons.mail_rounded : Icons.mail_outline_rounded,
+                          color: Colors.grey.shade700,
+                          size: 30,
+                        )
+                      ),
+                      Tab(
+                        icon: Icon(
+                          tabController.index == 4 ? Icons.settings_rounded : Icons.settings_outlined,
+                          color: Colors.grey.shade700,
+                          size: 30,
+                        )
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline_rounded),
-              activeIcon: Icon(Icons.person),
-              label: 'Personal',
-              backgroundColor: Colors.white,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.people_alt_outlined),
-              activeIcon: Icon(Icons.people_alt),
-              label: 'Group',
-              backgroundColor: Colors.white,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.mail_outline_rounded),
-              activeIcon: Icon(Icons.mail),
-              label: 'Invitation',
-              backgroundColor: Colors.white,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings_outlined),
-              activeIcon: Icon(Icons.settings),
-              label: 'Profile',
-              backgroundColor: Colors.white,
-            ),
-          ],
-          onTap: _onItemTapped,
+            body: TabBarView(
+              controller: tabController,
+              children: const <Widget>[
+                Dashboard(),
+                Personal(),
+                Group(),
+                Invitations(),
+                Profile(),
+              ],
+            )
         ),
       ),
     );
   }
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  Future<bool> _onWillPop() async {
-    if (_selectedIndex == 0) {
+  Future<bool> onWillPop() async {
+    if (tabController.index == 0) {
       await SystemNavigator.pop();
     }
     Future.delayed(const Duration(milliseconds: 100), () {
       setState(() {
-        _selectedIndex = 0;
+        tabController.index = 0;
       });
     });
-    return _selectedIndex == 0;
+    return tabController.index == 0;
   }
 }

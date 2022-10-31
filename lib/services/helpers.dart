@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:trackmymoney/models/user.dart';
+import 'package:trackmymoney/services/local_storage.dart';
 
 class Helpers {
   static Future<bool> checkConnectivity() async {
@@ -16,6 +18,19 @@ class Helpers {
       return false;
     }
     return false;
+  }
+
+  static Future<String> getToken() async {
+    try {
+      String? currentSession = await LocalStorage.getStorageData("current_session");
+      if(currentSession != null){
+        User user = User.fromJson(jsonDecode(currentSession));
+        return "Bearer " + user.token;
+      }
+    } on SocketException catch (_) {
+      return "";
+    }
+    return "";
   }
 
   static String formatCurrency(double number){
