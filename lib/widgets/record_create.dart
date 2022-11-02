@@ -31,14 +31,13 @@ class RecordCreate extends StatefulWidget {
 class _RecordCreateState extends State<RecordCreate> {
 
   final createFormKey = GlobalKey<FormState>();
-  bool loadingMember = false;
   bool loadingData = false;
   bool loadingForm = false;
 
+  TextEditingController titleController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   DateTime selectedDate = DateTime.now();
   TextEditingController dateController = TextEditingController();
-  TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   int memberId = 0;
   late List membersId;
@@ -63,15 +62,13 @@ class _RecordCreateState extends State<RecordCreate> {
     return AlertDialog(
       content: SizedBox(
         width: double.maxFinite,
-        child: (loadingMember || loadingData) ? SizedBox(
+        child: loadingData ? SizedBox(
           height: 400,
           child: SpinKitRotatingPlain(
             color: Colors.grey[900],
             size: 50.0,
           ),
-        )
-            :
-        SingleChildScrollView(
+        ) : SingleChildScrollView(
           child: Form(
             key: createFormKey,
             child: Column(
@@ -213,48 +210,48 @@ class _RecordCreateState extends State<RecordCreate> {
                   ),
                 ),
                 Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                            child: const Text("Cancel"),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          }
-                        ),
-                        const SizedBox(width: 5),
-                        ElevatedButton.icon(
-                          icon: const Icon(Icons.check),
-                          label: const Text("Save"),
-                          onPressed: () {
-                            if(createFormKey.currentState!.validate()){
-                              setState(() {
-                                loadingForm = true;
-                              });
-                              Map<String, dynamic> inputData = {
-                                "type": widget.type,
-                                "title": titleController.text,
-                                "amount": amountController.text,
-                                "date": dateController.text,
-                                "description": descriptionController.text
-                              };
-                              if(widget.groupId != "") {
-                                inputData["group_id"] = widget.groupId;
-                              }
-                              if(widget.type == "Contribution"){
-                                inputData["member"] = memberId;
-                              }
-                              else if(widget.type == "Bill"){
-                                inputData["members"] = membersId;
-                              }
-                              saveRecord(inputData);
+                  margin: const EdgeInsets.only(top: 10),
+                  alignment: Alignment.centerLeft,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                          child: const Text("Cancel"),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        }
+                      ),
+                      const SizedBox(width: 5),
+                      ElevatedButton.icon(
+                        icon: const Icon(Icons.check),
+                        label: const Text("Save"),
+                        onPressed: () {
+                          if(createFormKey.currentState!.validate()){
+                            setState(() {
+                              loadingForm = true;
+                            });
+                            Map<String, dynamic> inputData = {
+                              "type": widget.type,
+                              "title": titleController.text,
+                              "amount": amountController.text,
+                              "date": dateController.text,
+                              "description": descriptionController.text
+                            };
+                            if(widget.groupId != "") {
+                              inputData["group_id"] = widget.groupId;
                             }
+                            if(widget.type == "Contribution"){
+                              inputData["member"] = memberId;
+                            }
+                            else if(widget.type == "Bill"){
+                              inputData["members"] = membersId;
+                            }
+                            saveRecord(inputData);
                           }
-                        ),
-                      ],
-                    )
+                        }
+                      ),
+                    ],
+                  )
                 ),
               ],
             ),

@@ -83,7 +83,7 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
               children: const <Widget>[
                 Dashboard(),
                 Personal(),
-                Group(),
+                Groups(),
                 Invitations(),
                 Profile(),
               ],

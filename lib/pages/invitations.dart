@@ -8,6 +8,7 @@ class Invitations extends StatefulWidget {
 }
 
 class _InvitationsState extends State<Invitations> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
