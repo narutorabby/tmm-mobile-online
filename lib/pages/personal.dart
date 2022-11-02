@@ -88,36 +88,28 @@ class _PersonalState extends State<Personal> {
       ),
       floatingActionButton: SpeedDial(
         animatedIcon: AnimatedIcons.menu_close,
-        backgroundColor: Colors.blueAccent,
-        foregroundColor: Colors.white,
         elevation: 10,
         children: [
           SpeedDialChild(
-            child: const Icon(Icons.filter_list, color: Colors.white),
-            backgroundColor: Colors.blueAccent,
+            child: const Icon(Icons.filter_list),
             onTap: () {},
             label: 'Filter list',
             labelStyle:
-            const TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
-            labelBackgroundColor: Colors.black54,
+            const TextStyle(fontWeight: FontWeight.w500),
           ),
           SpeedDialChild(
-            child: const Icon(Icons.add_card_rounded, color: Colors.white),
-            backgroundColor: Colors.blueAccent,
+            child: const Icon(Icons.add_card_rounded),
             onTap: () {},
             label: 'Create expense',
             labelStyle:
-            const TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
-            labelBackgroundColor: Colors.black54,
+            const TextStyle(fontWeight: FontWeight.w500),
           ),
           SpeedDialChild(
-            child: const Icon(Icons.playlist_add_rounded, color: Colors.white),
-            backgroundColor: Colors.blueAccent,
+            child: const Icon(Icons.playlist_add_rounded),
             onTap: () {},
             label: 'Create income',
             labelStyle:
-            const TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
-            labelBackgroundColor: Colors.black54,
+            const TextStyle(fontWeight: FontWeight.w500),
           )
         ],
       ),
