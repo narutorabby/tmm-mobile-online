@@ -4,7 +4,6 @@ import 'package:trackmymoney/services/helpers.dart';
 
 class ApiManager {
   late BasicResponse basicResponse;
-  late Response response;
 
   Future<BasicResponse> apiCall(method, url, params, inputData) async {
 
@@ -19,10 +18,10 @@ class ApiManager {
 
     bool internet = await Helpers.checkConnectivity();
     if(!internet){
-      basicResponse = BasicResponse(response: "error", message: "No internet connection", data: null);
-      return basicResponse;
+      return BasicResponse(response: "error", message: "No internet connection", data: null);
     }
     try{
+      late Response response;
       if(method == "GET"){
         response = await dio.get(url, queryParameters: params);
       }
@@ -40,8 +39,8 @@ class ApiManager {
       return basicResponse;
     }
     on DioError catch(e){
-      basicResponse = BasicResponse(response: "error", message: "Something went wrong", data: null);
-      return basicResponse;
+      print(e);
+      return BasicResponse(response: "error", message: "Something went wrong", data: null);
     }
   }
 }

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:trackmymoney/models/record.dart';
 import 'package:trackmymoney/services/helpers.dart';
+import 'package:trackmymoney/widgets/record_create.dart';
 
 class RecordListItem extends StatefulWidget {
 
   final Record record;
+  final Function responseAction;
 
-  const RecordListItem({Key? key, required this.record}) : super(key: key);
+  const RecordListItem({Key? key, required this.record, required this.responseAction}) : super(key: key);
 
   @override
   State<RecordListItem> createState() => _RecordListItemState();
@@ -15,11 +17,28 @@ class RecordListItem extends StatefulWidget {
 
 class _RecordListItemState extends State<RecordListItem> {
 
+  bool showDetails = false;
+
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 1,
       child: InkWell(
+        onTap: () {
+          showDialog(
+            context: context,
+            barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return RecordCreate(
+                type: widget.record.type,
+                responseAction: widget.responseAction,
+                record: widget.record,
+                edit: true,
+              );
+            }
+          );
+        },
         child: Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             child: Column(
@@ -35,8 +54,8 @@ class _RecordListItemState extends State<RecordListItem> {
                           Text(
                             widget.record.title,
                             style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -44,9 +63,20 @@ class _RecordListItemState extends State<RecordListItem> {
                         ],
                       ),
                     ),
-                    Text(
-                      Helpers.formatCurrency(widget.record.amount),
-                      style: const TextStyle(fontSize: 18)
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            widget.record.type.toUpperCase(),
+                            style: const TextStyle(fontSize: 10)
+                          ),
+                          Text(
+                            Helpers.formatCurrency(widget.record.amount),
+                            style: const TextStyle(fontSize: 18)
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),

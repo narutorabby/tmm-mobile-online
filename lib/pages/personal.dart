@@ -5,6 +5,7 @@ import 'package:trackmymoney/models/basic_response.dart';
 import 'package:trackmymoney/models/record.dart';
 import 'package:trackmymoney/models/record_paginated.dart';
 import 'package:trackmymoney/services/api_manager.dart';
+import 'package:trackmymoney/widgets/record_create.dart';
 import 'package:trackmymoney/widgets/record_list_item.dart';
 
 class Personal extends StatefulWidget {
@@ -78,7 +79,7 @@ class _PersonalState extends State<Personal> {
                       ),
                     );
                   }
-                  return RecordListItem(record: records[index]);
+                  return RecordListItem(record: records[index], responseAction: resetFilters);
                 },
                 itemCount: records.length + 1,
               ),
@@ -98,15 +99,18 @@ class _PersonalState extends State<Personal> {
             const TextStyle(fontWeight: FontWeight.w500),
           ),
           SpeedDialChild(
-            child: const Icon(Icons.add_card_rounded),
-            onTap: () {},
             label: 'Create expense',
-            labelStyle:
-            const TextStyle(fontWeight: FontWeight.w500),
+            labelStyle: const TextStyle(fontWeight: FontWeight.w500),
+            child: const Icon(Icons.add_card_rounded),
+            onTap: () {
+              createRecord("Expense");
+            },
           ),
           SpeedDialChild(
             child: const Icon(Icons.playlist_add_rounded),
-            onTap: () {},
+            onTap: () {
+              createRecord("Income");
+            },
             label: 'Create income',
             labelStyle:
             const TextStyle(fontWeight: FontWeight.w500),
@@ -134,5 +138,28 @@ class _PersonalState extends State<Personal> {
       }
       pageLoading = false;
     });
+  }
+
+  void resetFilters(){
+    setState(() {
+      pageLoading = true;
+      currentPage = 1;
+      records = [];
+    });
+    getRecords();
+  }
+
+  void createRecord(String type) {
+    showDialog(
+        context: context,
+        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return RecordCreate(
+            type: type,
+            responseAction: resetFilters,
+          );
+        }
+    );
   }
 }
