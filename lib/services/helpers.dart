@@ -34,10 +34,10 @@ class Helpers {
   }
 
   static String formatCurrency(double number){
-    return NumberFormat.simpleCurrency(name: 'BDT', decimalDigits: 2).format(number);
+    return NumberFormat("#,##0.00", "en_US").format(number);
   }
 
-  static String formatDate(String rawDate){
+  static String formatDate(DateTime rawDate){
     return Jiffy(rawDate).format("dd-MM-yyyy");
   }
 

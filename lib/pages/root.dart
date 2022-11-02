@@ -43,40 +43,40 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
                 children: [
                   TabBar(
                     controller: tabController,
-                    indicatorColor: Colors.grey.shade700,
+                    indicatorColor: Colors.grey.shade600,
                     tabs: [
                       Tab(
                         icon: Icon(
                           tabController.index == 0 ? Icons.home_rounded : Icons.home_outlined,
-                          color: Colors.grey.shade700,
+                          color: Colors.grey.shade600,
                           size: 30,
                         )
                       ),
                       Tab(
                         icon: Icon(
                           tabController.index == 1 ? Icons.person_rounded : Icons.person_outline_rounded,
-                          color: Colors.grey.shade700,
+                          color: Colors.grey.shade600,
                           size: 30,
                         )
                       ),
                       Tab(
                         icon: Icon(
                           tabController.index == 2 ? Icons.people_alt_rounded : Icons.people_alt_outlined,
-                          color: Colors.grey.shade700,
+                          color: Colors.grey.shade600,
                           size: 30,
                         )
                       ),
                       Tab(
                         icon: Icon(
                           tabController.index == 3 ? Icons.mail_rounded : Icons.mail_outline_rounded,
-                          color: Colors.grey.shade700,
+                          color: Colors.grey.shade600,
                           size: 30,
                         )
                       ),
                       Tab(
                         icon: Icon(
                           tabController.index == 4 ? Icons.settings_rounded : Icons.settings_outlined,
-                          color: Colors.grey.shade700,
+                          color: Colors.grey.shade600,
                           size: 30,
                         )
                       ),
