@@ -15,7 +15,7 @@ class GroupMemberInvite extends StatefulWidget {
 
 class _GroupMemberInviteState extends State<GroupMemberInvite> {
 
-  final createFormKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   bool loadingForm = false;
   TextEditingController emailController = TextEditingController();
 
@@ -23,7 +23,7 @@ class _GroupMemberInviteState extends State<GroupMemberInvite> {
   Widget build(BuildContext context) {
     return AlertDialog(
       content: Form(
-        key: createFormKey,
+        key: formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +69,7 @@ class _GroupMemberInviteState extends State<GroupMemberInvite> {
                         icon: loadingForm ? const ButtonLoading() : const Icon(Icons.check),
                         label: const Text("Invite"),
                         onPressed: () {
-                          if(createFormKey.currentState!.validate()){
+                          if(formKey.currentState!.validate()){
                             setState(() {
                               loadingForm = true;
                             });

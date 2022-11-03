@@ -19,7 +19,7 @@ class GroupCreateEdit extends StatefulWidget {
 
 class _GroupCreateEditState extends State<GroupCreateEdit> {
 
-  final createFormKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   bool loadingData = false;
   bool loadingForm = false;
   TextEditingController nameController = TextEditingController();
@@ -43,7 +43,7 @@ class _GroupCreateEditState extends State<GroupCreateEdit> {
           size: 50.0,
         ),
       ) : Form(
-        key: createFormKey,
+        key: formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,7 +90,7 @@ class _GroupCreateEditState extends State<GroupCreateEdit> {
                         icon: loadingForm ? const ButtonLoading() : const Icon(Icons.check),
                         label: const Text("Save"),
                         onPressed: () {
-                          if(createFormKey.currentState!.validate()){
+                          if(formKey.currentState!.validate()){
                             setState(() {
                               loadingForm = true;
                             });

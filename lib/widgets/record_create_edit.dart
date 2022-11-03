@@ -32,7 +32,7 @@ class RecordCreateEdit extends StatefulWidget {
 
 class _RecordCreateEditState extends State<RecordCreateEdit> {
 
-  final createFormKey = GlobalKey<FormState>();
+  final formKey = GlobalKey<FormState>();
   bool loadingData = false;
   bool loadingForm = false;
 
@@ -75,7 +75,7 @@ class _RecordCreateEditState extends State<RecordCreateEdit> {
           ),
         ) : SingleChildScrollView(
           child: Form(
-            key: createFormKey,
+            key: formKey,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,7 +237,7 @@ class _RecordCreateEditState extends State<RecordCreateEdit> {
                         icon: loadingForm ? const ButtonLoading() : const Icon(Icons.check),
                         label: const Text("Save"),
                         onPressed: () {
-                          if(createFormKey.currentState!.validate()){
+                          if(formKey.currentState!.validate()){
                             setState(() {
                               loadingForm = true;
                             });
