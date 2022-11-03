@@ -17,12 +17,12 @@ class Record {
     required this.userId,
     required this.groupId,
     required this.createdBy,
-    required this.updatedBy,
+    this.updatedBy,
     required this.createdAt,
-    required this.updatedAt,
-    required this.deletedAt,
-    required this.user,
-    required this.shares,
+    this.updatedAt,
+    this.deletedAt,
+    this.user,
+    this.shares,
   });
 
   int id;
@@ -39,7 +39,7 @@ class Record {
   DateTime? updatedAt;
   DateTime? deletedAt;
   User? user;
-  List<Share> shares;
+  List<Share>? shares;
 
   factory Record.fromJson(Map<String, dynamic> json) => Record(
     id: json["id"],
@@ -74,6 +74,6 @@ class Record {
     "updated_at": updatedAt,
     "deleted_at": deletedAt,
     "user": user?.toJson(),
-    "shares": List<dynamic>.from(shares.map((x) => x.toJson())),
+    "shares": List<dynamic>.from(shares!.map((x) => x.toJson())),
   };
 }

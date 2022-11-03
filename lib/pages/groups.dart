@@ -3,7 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:trackmymoney/models/basic_response.dart';
 import 'package:trackmymoney/models/group.dart';
 import 'package:trackmymoney/services/api_manager.dart';
-import 'package:trackmymoney/widgets/group_create.dart';
+import 'package:trackmymoney/widgets/group_create_edit.dart';
 import 'package:trackmymoney/widgets/group_list_item.dart';
 
 class Groups extends StatefulWidget {
@@ -77,7 +77,7 @@ class _GroupsState extends State<Groups> with TickerProviderStateMixin {
               barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
               barrierDismissible: false,
               builder: (BuildContext context) {
-                return GroupCreate(responseAction: getGroups);
+                return GroupCreateEdit(responseAction: getGroups);
               }
           );
         },

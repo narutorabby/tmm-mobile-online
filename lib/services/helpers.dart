@@ -33,6 +33,18 @@ class Helpers {
     return "";
   }
 
+  static Future<User?> getSession() async {
+    try {
+      String? currentSession = await LocalStorage.getStorageData("current_session");
+      if(currentSession != null){
+        return User.fromJson(jsonDecode(currentSession));
+      }
+    } on SocketException catch (_) {
+      return null;
+    }
+    return null;
+  }
+
   static String formatCurrency(double number){
     return NumberFormat("#,##0.00", "en_US").format(number);
   }

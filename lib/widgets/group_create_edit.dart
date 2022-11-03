@@ -4,19 +4,20 @@ import 'package:trackmymoney/models/basic_response.dart';
 import 'package:trackmymoney/models/group.dart';
 import 'package:trackmymoney/services/api_manager.dart';
 import 'package:trackmymoney/services/helpers.dart';
+import 'package:trackmymoney/widgets/button_loading.dart';
 
-class GroupCreate extends StatefulWidget {
+class GroupCreateEdit extends StatefulWidget {
   final Group? group;
   final Function responseAction;
   final bool edit;
 
-  const GroupCreate({Key? key, this.group, required this.responseAction, this.edit = false}) : super(key: key);
+  const GroupCreateEdit({Key? key, this.group, required this.responseAction, this.edit = false}) : super(key: key);
 
   @override
-  State<GroupCreate> createState() => _GroupCreateState();
+  State<GroupCreateEdit> createState() => _GroupCreateEditState();
 }
 
-class _GroupCreateState extends State<GroupCreate> {
+class _GroupCreateEditState extends State<GroupCreateEdit> {
 
   final createFormKey = GlobalKey<FormState>();
   bool loadingData = false;
@@ -54,9 +55,7 @@ class _GroupCreateState extends State<GroupCreate> {
                   fontSize: 20
               ),
             ),
-            const SizedBox(height: 10),
-            if(loadingForm) const LinearProgressIndicator(),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             Container(
               margin: const EdgeInsets.only(bottom: 20),
               child: TextFormField(
@@ -88,7 +87,7 @@ class _GroupCreateState extends State<GroupCreate> {
                     ),
                     const SizedBox(width: 5),
                     ElevatedButton.icon(
-                        icon: const Icon(Icons.check),
+                        icon: loadingForm ? const ButtonLoading() : const Icon(Icons.check),
                         label: const Text("Save"),
                         onPressed: () {
                           if(createFormKey.currentState!.validate()){

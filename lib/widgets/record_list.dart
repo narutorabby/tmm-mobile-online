@@ -6,7 +6,7 @@ import 'package:trackmymoney/models/group.dart';
 import 'package:trackmymoney/models/record.dart';
 import 'package:trackmymoney/models/record_paginated.dart';
 import 'package:trackmymoney/services/api_manager.dart';
-import 'package:trackmymoney/widgets/record_create.dart';
+import 'package:trackmymoney/widgets/record_create_edit.dart';
 import 'package:trackmymoney/widgets/record_filter.dart';
 import 'package:trackmymoney/widgets/record_list_item.dart';
 
@@ -224,7 +224,7 @@ class _RecordListState extends State<RecordList> {
         barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
         barrierDismissible: false,
         builder: (BuildContext context) {
-          return RecordCreate(
+          return RecordCreateEdit(
             type: type,
             responseAction: resetFilters,
             group: widget.isGroup ? group : null

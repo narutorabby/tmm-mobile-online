@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trackmymoney/models/group.dart';
 import 'package:trackmymoney/models/record.dart';
 import 'package:trackmymoney/services/helpers.dart';
-import 'package:trackmymoney/widgets/record_create.dart';
+import 'package:trackmymoney/widgets/record_create_edit.dart';
 
 class RecordListItem extends StatefulWidget {
 
@@ -31,7 +31,7 @@ class _RecordListItemState extends State<RecordListItem> {
             barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
             barrierDismissible: false,
             builder: (BuildContext context) {
-              return RecordCreate(
+              return RecordCreateEdit(
                 type: widget.record.type,
                 responseAction: widget.responseAction,
                 record: widget.record,

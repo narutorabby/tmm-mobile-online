@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trackmymoney/models/basic_response.dart';
 import 'package:trackmymoney/services/api_manager.dart';
 import 'package:trackmymoney/services/helpers.dart';
+import 'package:trackmymoney/widgets/button_loading.dart';
 
 class GroupMemberInvite extends StatefulWidget {
   final String slug;
@@ -34,9 +35,7 @@ class _GroupMemberInviteState extends State<GroupMemberInvite> {
                   fontSize: 20
               ),
             ),
-            const SizedBox(height: 10),
-            if(loadingForm) const LinearProgressIndicator(),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             Container(
               margin: const EdgeInsets.only(bottom: 20),
               child: TextFormField(
@@ -67,7 +66,7 @@ class _GroupMemberInviteState extends State<GroupMemberInvite> {
                     ),
                     const SizedBox(width: 5),
                     ElevatedButton.icon(
-                        icon: const Icon(Icons.check),
+                        icon: loadingForm ? const ButtonLoading() : const Icon(Icons.check),
                         label: const Text("Invite"),
                         onPressed: () {
                           if(createFormKey.currentState!.validate()){

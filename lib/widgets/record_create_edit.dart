@@ -7,8 +7,9 @@ import 'package:trackmymoney/models/group.dart';
 import 'package:trackmymoney/models/record.dart';
 import 'package:trackmymoney/services/api_manager.dart';
 import 'package:trackmymoney/services/helpers.dart';
+import 'package:trackmymoney/widgets/button_loading.dart';
 
-class RecordCreate extends StatefulWidget {
+class RecordCreateEdit extends StatefulWidget {
 
   final String type;
   final bool edit;
@@ -16,7 +17,7 @@ class RecordCreate extends StatefulWidget {
   final Record? record;
   final Function responseAction;
 
-  const RecordCreate({
+  const RecordCreateEdit({
     Key? key,
     required this.type,
     required this.responseAction,
@@ -26,10 +27,10 @@ class RecordCreate extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<RecordCreate> createState() => _RecordCreateState();
+  State<RecordCreateEdit> createState() => _RecordCreateEditState();
 }
 
-class _RecordCreateState extends State<RecordCreate> {
+class _RecordCreateEditState extends State<RecordCreateEdit> {
 
   final createFormKey = GlobalKey<FormState>();
   bool loadingData = false;
@@ -86,9 +87,7 @@ class _RecordCreateState extends State<RecordCreate> {
                       fontSize: 20
                   ),
                 ),
-                const SizedBox(height: 10),
-                if(loadingForm) const LinearProgressIndicator(),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
                 Container(
                   margin: const EdgeInsets.only(bottom: 20),
                   child: TextFormField(
@@ -235,7 +234,7 @@ class _RecordCreateState extends State<RecordCreate> {
                       ),
                       const SizedBox(width: 5),
                       ElevatedButton.icon(
-                        icon: const Icon(Icons.check),
+                        icon: loadingForm ? const ButtonLoading() : const Icon(Icons.check),
                         label: const Text("Save"),
                         onPressed: () {
                           if(createFormKey.currentState!.validate()){
@@ -318,12 +317,12 @@ class _RecordCreateState extends State<RecordCreate> {
       descriptionController.text = widget.record!.description == null ? "" : widget.record!.description.toString();
       if(widget.group != null) {
         if(widget.type == "Contribution"){
-          memberId = widget.record!.shares[0].id;
+          memberId = widget.record!.shares![0].id;
         }
         else if(widget.type == "Bill"){
           membersId = [];
-          for(int i = 0; i < widget.record!.shares.length; i++){
-            membersId.add(widget.record!.shares[i].id);
+          for(int i = 0; i < widget.record!.shares!.length; i++){
+            membersId.add(widget.record!.shares![i].id);
           }
         }
       }

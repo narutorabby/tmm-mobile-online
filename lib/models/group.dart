@@ -46,7 +46,7 @@ class Group {
     deletedAt: json["deleted_at"] != null ? DateTime.parse(json["deleted_at"]) : null,
     membersCount: json["members_count"],
     recordsCount: json["records_count"],
-    admin: User.fromJson(json["admin"]),
+    admin: json.containsKey("admin") ? User.fromJson(json["admin"]) : null,
     members: json["members"] != null ? List<User>.from(json["members"].map((x) => User.fromJson(x))) : null,
   );
 
