@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:trackmymoney/models/group.dart';
 import 'package:trackmymoney/models/record.dart';
 import 'package:trackmymoney/services/helpers.dart';
 import 'package:trackmymoney/widgets/record_create.dart';
 
 class RecordListItem extends StatefulWidget {
 
+  final Group? group;
   final Record record;
   final Function responseAction;
 
-  const RecordListItem({Key? key, required this.record, required this.responseAction}) : super(key: key);
+  const RecordListItem({Key? key, this.group, required this.record, required this.responseAction}) : super(key: key);
 
   @override
   State<RecordListItem> createState() => _RecordListItemState();
@@ -34,6 +35,7 @@ class _RecordListItemState extends State<RecordListItem> {
                 type: widget.record.type,
                 responseAction: widget.responseAction,
                 record: widget.record,
+                group: widget.group,
                 edit: true,
               );
             }

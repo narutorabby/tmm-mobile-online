@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:trackmymoney/pages/dashboard.dart';
-import 'package:trackmymoney/pages/group.dart';
+import 'package:trackmymoney/pages/groups.dart';
 import 'package:trackmymoney/pages/invitations.dart';
 import 'package:trackmymoney/pages/personal.dart';
 import 'package:trackmymoney/pages/profile.dart';

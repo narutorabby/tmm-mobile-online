@@ -25,8 +25,8 @@ class User {
   int id;
   String name;
   String email;
-  double googleId;
-  String mobile;
+  dynamic googleId;
+  String? mobile;
   String avatar;
   dynamic createdAt;
   dynamic updatedAt;

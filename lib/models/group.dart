@@ -19,6 +19,7 @@ class Group {
     this.membersCount,
     this.recordsCount,
     this.admin,
+    this.members,
   });
 
   int id;
@@ -32,6 +33,7 @@ class Group {
   int? membersCount;
   int? recordsCount;
   User? admin;
+  List<User>? members;
 
   factory Group.fromJson(Map<String, dynamic> json) => Group(
     id: json["id"],
@@ -45,6 +47,7 @@ class Group {
     membersCount: json["members_count"],
     recordsCount: json["records_count"],
     admin: User.fromJson(json["admin"]),
+    members: json["members"] != null ? List<User>.from(json["members"].map((x) => User.fromJson(x))) : null,
   );
 
   Map<String, dynamic> toJson() => {
@@ -59,5 +62,6 @@ class Group {
     "members_count": membersCount,
     "records_count": recordsCount,
     "admin": admin?.toJson(),
+    "members": List<dynamic>.from(members!.map((x) => x.toJson())),
   };
 }

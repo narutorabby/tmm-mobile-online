@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:trackmymoney/models/basic_response.dart';
+import 'package:trackmymoney/models/group.dart';
 import 'package:trackmymoney/models/record.dart';
 import 'package:trackmymoney/models/record_paginated.dart';
 import 'package:trackmymoney/services/api_manager.dart';
@@ -11,7 +12,8 @@ import 'package:trackmymoney/widgets/record_list_item.dart';
 
 class RecordList extends StatefulWidget {
   final bool isGroup;
-  const RecordList({Key? key, this.isGroup = false}) : super(key: key);
+  final String slug;
+  const RecordList({Key? key, this.isGroup = false, this.slug = ""}) : super(key: key);
 
   @override
   State<RecordList> createState() => _RecordListState();
@@ -30,11 +32,13 @@ class _RecordListState extends State<RecordList> {
   final scrollController = ScrollController();
   late bool loadingMore;
 
+  late Group group;
+
   @override
   void initState() {
     records = [];
     loadingMore = false;
-    getRecords();
+    initAction();
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent == scrollController.offset) {
         setState(() {
@@ -111,7 +115,7 @@ class _RecordListState extends State<RecordList> {
                       ),
                     );
                   }
-                  return RecordListItem(record: records[index], responseAction: resetFilters);
+                  return RecordListItem(record: records[index], responseAction: resetFilters, group: widget.isGroup ? group : null);
                 },
                 itemCount: records.length + 1,
               ),
@@ -146,15 +150,36 @@ class _RecordListState extends State<RecordList> {
     );
   }
 
+  void initAction() {
+    if(widget.isGroup) {
+      groupDetails();
+    }
+    else {
+      getRecords();
+    }
+  }
+
+  Future<void> groupDetails() async {
+    ApiManager apiManager = ApiManager();
+    BasicResponse basicResponse = await apiManager.apiCall("GET", "group/show/${widget.slug}", null, null);
+    setState(() {
+      if(basicResponse.response == "success"){
+        group = Group.fromJson(basicResponse.data);
+        getRecords();
+      }
+    });
+  }
+
   Future<void> getRecords() async {
     Map<String, dynamic> params = {
+      'group_id': widget.isGroup ? group.id : null,
       'type': type,
       'date_from': dateFrom,
       'date_to': dateTo,
       'page': currentPage
     };
     ApiManager apiManager = ApiManager();
-    BasicResponse basicResponse = await apiManager.apiCall("GET", "record/personal", params, null);
+    BasicResponse basicResponse = await apiManager.apiCall("GET", widget.isGroup ? "record/group" : "record/personal", params, null);
     setState(() {
       if(basicResponse.response == "success"){
         recordPaginated = RecordPaginated.fromJson(basicResponse.data);
@@ -202,6 +227,7 @@ class _RecordListState extends State<RecordList> {
           return RecordCreate(
             type: type,
             responseAction: resetFilters,
+            group: widget.isGroup ? group : null
           );
         }
     );

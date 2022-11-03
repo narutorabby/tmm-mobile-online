@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trackmymoney/models/group.dart';
+import 'package:trackmymoney/pages/group_members.dart';
+import 'package:trackmymoney/pages/group_records.dart';
 import 'package:trackmymoney/services/helpers.dart';
 import 'package:trackmymoney/widgets/group_create.dart';
 
@@ -106,7 +108,7 @@ class _GroupListItemState extends State<GroupListItem> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -129,14 +131,18 @@ class _GroupListItemState extends State<GroupListItem> {
                         Expanded(
                           child: OutlinedButton(
                             child: const Text("Members"),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => GroupMembers(slug: widget.group.slug)));
+                            },
                           )
                         ),
                         const SizedBox(width: 20),
                         Expanded(
                           child: OutlinedButton(
                             child: const Text("Records"),
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => GroupRecords(slug: widget.group.slug)));
+                            },
                           )
                         ),
                       ],

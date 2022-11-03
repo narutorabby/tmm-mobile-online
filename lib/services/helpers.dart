@@ -49,6 +49,17 @@ class Helpers {
     return Jiffy(rawDate).format("EEEE, do MMM yyyy");
   }
 
+  static String mobileNumber(String number) {
+    return number.substring(4);
+  }
+
+  static bool isNumeric(String? s) {
+    if(s == null) {
+      return false;
+    }
+    return double.tryParse(s) != null;
+  }
+
   static showToast(FToast fToast, String response, String message, {int duration = 4}){
     Color bgColor = Colors.orange.withOpacity(0.75);
     IconData icon = Icons.info_outline;
