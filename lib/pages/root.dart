@@ -79,6 +79,7 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
               ),
             ),
             body: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
               controller: tabController,
               children: const <Widget>[
                 Dashboard(),

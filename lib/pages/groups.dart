@@ -3,8 +3,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:trackmymoney/models/basic_response.dart';
 import 'package:trackmymoney/models/group.dart';
 import 'package:trackmymoney/services/api_manager.dart';
-import 'package:trackmymoney/widgets/group_create_edit.dart';
-import 'package:trackmymoney/widgets/group_list_item.dart';
+import 'package:trackmymoney/pages/groups/group_create_edit.dart';
+import 'package:trackmymoney/pages/groups/group_list_item.dart';
 
 class Groups extends StatefulWidget {
   const Groups({Key? key}) : super(key: key);

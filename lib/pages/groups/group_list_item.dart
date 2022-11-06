@@ -3,7 +3,7 @@ import 'package:trackmymoney/models/group.dart';
 import 'package:trackmymoney/pages/group_members.dart';
 import 'package:trackmymoney/pages/group_records.dart';
 import 'package:trackmymoney/services/helpers.dart';
-import 'package:trackmymoney/widgets/group_create_edit.dart';
+import 'package:trackmymoney/pages/groups/group_create_edit.dart';
 
 class GroupListItem extends StatefulWidget {
   final Group group;

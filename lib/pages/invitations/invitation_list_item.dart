@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trackmymoney/models/invitation.dart';
-import 'package:trackmymoney/widgets/invitation_action.dart';
+import 'package:trackmymoney/pages/invitations/invitation_action.dart';
 
 class InvitationListItem extends StatefulWidget {
   final Invitation invitation;

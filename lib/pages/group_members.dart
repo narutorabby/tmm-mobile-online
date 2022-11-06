@@ -3,8 +3,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:trackmymoney/models/basic_response.dart';
 import 'package:trackmymoney/models/group_member.dart';
 import 'package:trackmymoney/services/api_manager.dart';
-import 'package:trackmymoney/widgets/group_member_invite.dart';
-import 'package:trackmymoney/widgets/group_member_list_item.dart';
+import 'package:trackmymoney/pages/group_members/group_member_list_item.dart';
+import 'package:trackmymoney/pages/group_members/group_member_invite.dart';
 
 class GroupMembers extends StatefulWidget {
   final String slug;

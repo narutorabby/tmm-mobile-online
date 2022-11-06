@@ -72,6 +72,14 @@ class Helpers {
     return double.tryParse(s) != null;
   }
 
+  static Color colorFromHex(String hexString) {
+    final buffer = StringBuffer();
+    buffer.write(hexString.substring(7, 9).toLowerCase());
+    hexString = hexString.substring(0, 7);
+    buffer.write(hexString.replaceFirst('#', ''));
+    return Color(int.parse(buffer.toString(), radix: 16));
+  }
+
   static showToast(FToast fToast, String response, String message, {int duration = 4}){
     Color bgColor = Colors.orange.withOpacity(0.75);
     IconData icon = Icons.info_outline;

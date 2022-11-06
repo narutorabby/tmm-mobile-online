@@ -3,7 +3,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:trackmymoney/models/basic_response.dart';
 import 'package:trackmymoney/models/invitation.dart';
 import 'package:trackmymoney/services/api_manager.dart';
-import 'package:trackmymoney/widgets/invitation_list_item.dart';
+import 'package:trackmymoney/pages/invitations/invitation_list_item.dart';
 
 class Invitations extends StatefulWidget {
   const Invitations({Key? key}) : super(key: key);
