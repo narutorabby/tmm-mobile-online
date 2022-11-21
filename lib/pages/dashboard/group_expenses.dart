@@ -17,6 +17,7 @@ class _GroupExpensesState extends State<GroupExpenses> {
 
   int touchedIndex = -1;
   bool groupExLoading = true;
+  bool groupExLoaded = false;
   late DashboardGroupExpense dashboardGroupExpense;
   late List<PieChartSectionData> pieChartSectionData;
 
@@ -50,7 +51,7 @@ class _GroupExpensesState extends State<GroupExpenses> {
                     children: const <Widget>[
                       Text(
                         'Group expense',
-                        style: TextStyle(color: Colors.white, fontSize: 22),
+                        style: TextStyle(fontSize: 22),
                       ),
                       SizedBox(
                         width: 4,
@@ -64,10 +65,10 @@ class _GroupExpensesState extends State<GroupExpenses> {
                     ],
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
                   Expanded(
-                    child: AspectRatio(
+                    child: groupExLoaded ? AspectRatio(
                       aspectRatio: 1,
                       child: PieChart(
                         PieChartData(
@@ -91,13 +92,13 @@ class _GroupExpensesState extends State<GroupExpenses> {
                           sections: showingSections(),
                         ),
                       ),
-                    ),
+                    ) : const Text("No expenses found"),
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 20),
-            SizedBox(
+            if(groupExLoaded) SizedBox(
                 width: double.infinity,
                 child: Wrap(
                   alignment: WrapAlignment.center,
@@ -118,7 +119,10 @@ class _GroupExpensesState extends State<GroupExpenses> {
 
     if(basicResponse.response == "success"){
       setState(() {
-        dashboardGroupExpense = DashboardGroupExpense.fromJson(basicResponse.data);
+        if(basicResponse.data != null) {
+          dashboardGroupExpense = DashboardGroupExpense.fromJson(basicResponse.data);
+          groupExLoaded = true;
+        }
         groupExLoading = false;
       });
     }

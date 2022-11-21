@@ -11,8 +11,8 @@ class RecordPaginated {
     required this.currentPage,
     required this.data,
     required this.perPage,
-    required this.from,
-    required this.to,
+    this.from,
+    this.to,
     required this.total,
     required this.lastPage,
   });
@@ -20,8 +20,8 @@ class RecordPaginated {
   int currentPage;
   List<Record> data;
   int perPage;
-  int from;
-  int to;
+  int? from;
+  int? to;
   int total;
   int lastPage;
 

@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:trackmymoney/models/basic_response.dart';
 import 'package:trackmymoney/models/user.dart';
 import 'package:trackmymoney/pages/root.dart';
+import 'package:trackmymoney/pages/static_page.dart';
 import 'package:trackmymoney/services/api_manager.dart';
 import 'package:trackmymoney/services/google_api.dart';
 import 'package:trackmymoney/services/helpers.dart';
@@ -33,7 +34,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
@@ -92,7 +92,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.only(top: 20),
                 child: const UserSuggestion()
               ),
               const SizedBox(height: 20),
@@ -127,7 +127,33 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              const SizedBox(height: 100),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text("Useful links"),
+                    Row(
+                      children: [
+                        TextButton(
+                          child: const Text("Privacy Policy"),
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const StaticPage(page: "privacy-policy",)));
+                          },
+                        ),
+                        TextButton(
+                          child: const Text("Terms Of Service"),
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const StaticPage(page: "terms-of-service",)));
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 120),
             ],
           ),
         )

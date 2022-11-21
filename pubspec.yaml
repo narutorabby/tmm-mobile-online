@@ -46,6 +46,7 @@ dependencies:
   flutter_speed_dial: ^6.2.0
   multi_select_flutter: ^4.1.2
   fl_chart: ^0.55.2
+  webview_flutter: ^3.0.4
 
 dev_dependencies:
   flutter_test:

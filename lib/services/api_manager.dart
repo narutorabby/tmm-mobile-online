@@ -8,7 +8,8 @@ class ApiManager {
   Future<BasicResponse> apiCall(method, url, params, inputData) async {
 
     Dio dio = Dio();
-    dio.options.baseUrl = "http://192.168.0.100/track-my-money/track-my-money/public/api/";
+    // dio.options.baseUrl = "http://192.168.0.100/track-my-money/track-my-money/public/api/";
+    dio.options.baseUrl = "https://trackmymoney.xyz/api/";
     var token = await Helpers.getToken();
     dio.options.headers = {
       'Authorization': token,

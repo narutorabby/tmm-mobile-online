@@ -17,13 +17,14 @@ class _LargestExpensesState extends State<LargestExpenses> {
 
   int touchedIndex = -1;
   bool largestExLoading = true;
+  bool largestExLoaded = false;
   late DashboardLargestExpense dashboardLargestExpense;
   late List<PieChartSectionData> pieChartSectionData;
 
   @override
   void initState() {
     super.initState();
-    getDailyInExData();
+    largestExpenseData();
   }
 
   @override
@@ -51,22 +52,22 @@ class _LargestExpensesState extends State<LargestExpenses> {
                     children: const <Widget>[
                       Text(
                         'Largest expense',
-                        style: TextStyle(color: Colors.white, fontSize: 22),
+                        style: TextStyle(fontSize: 22),
                       ),
                       SizedBox(
                         width: 4,
                       ),
                       Text(
-                        'top 5',
+                        'Top 5',
                         style: TextStyle(color: Color(0xff77839a), fontSize: 16),
                       ),
                     ],
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
                   Expanded(
-                    child: AspectRatio(
+                    child: largestExLoaded ? AspectRatio(
                       aspectRatio: 1,
                       child: PieChart(
                         PieChartData(
@@ -90,20 +91,17 @@ class _LargestExpensesState extends State<LargestExpenses> {
                           sections: showingSections(),
                         ),
                       ),
-                    ),
+                    ) : const Text("No expenses found"),
                   )
                 ],
               ),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: Wrap(
-                alignment: WrapAlignment.center,
-                children: [
-                  for(var i = 0; i < dashboardLargestExpense.labels.length; i++) indicator(i)
-                ],
-              )
+            if(largestExLoaded) Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                for(var i = 0; i < dashboardLargestExpense.labels.length; i++) indicator(i)
+              ],
             )
           ],
         ),
@@ -111,13 +109,16 @@ class _LargestExpensesState extends State<LargestExpenses> {
     );
   }
 
-  void getDailyInExData() async {
+  void largestExpenseData() async {
     ApiManager apiManager = ApiManager();
     BasicResponse basicResponse = await apiManager.apiCall("GET", "dashboard/largest-expense", null, null);
 
     if(basicResponse.response == "success"){
       setState(() {
-        dashboardLargestExpense = DashboardLargestExpense.fromJson(basicResponse.data);
+        if(basicResponse.data != null) {
+          dashboardLargestExpense = DashboardLargestExpense.fromJson(basicResponse.data);
+          largestExLoaded = true;
+        }
         largestExLoading = false;
       });
     }
@@ -150,7 +151,6 @@ class _LargestExpensesState extends State<LargestExpenses> {
   }
 
   Widget indicator(index) {
-    List<String> labels = ["First", "Second", "Third", "Fourth", "Fifth"];
     return Container(
       margin: const EdgeInsets.only(bottom: 10, right: 20),
       child: Row(
@@ -167,12 +167,14 @@ class _LargestExpensesState extends State<LargestExpenses> {
           const SizedBox(
             width: 4,
           ),
-          Text(
-            labels[index],
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              color: Colors.blueGrey.shade400
+          Flexible(
+            child: Text(
+              dashboardLargestExpense.labels[index],
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: Colors.blueGrey.shade400
+              ),
             ),
           )
         ],

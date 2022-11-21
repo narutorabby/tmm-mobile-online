@@ -44,7 +44,7 @@ class _MonthlyIncomeExpenseState extends State<MonthlyIncomeExpense> {
         ) : Column(
           children: [
             AspectRatio(
-              aspectRatio: 1,
+              aspectRatio: 0.9,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
@@ -53,21 +53,21 @@ class _MonthlyIncomeExpenseState extends State<MonthlyIncomeExpense> {
                     children: const <Widget>[
                       Text(
                         'Monthly income expense',
-                        style: TextStyle(color: Colors.white, fontSize: 22),
+                        style: TextStyle(fontSize: 22),
                       ),
                       SizedBox(
                         width: 4,
                       ),
                       Flexible(
                         child: Text(
-                          'last 6 months',
+                          'Last 6 months',
                           style: TextStyle(color: Color(0xff77839a), fontSize: 16),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
                   Expanded(
                     child: BarChart(

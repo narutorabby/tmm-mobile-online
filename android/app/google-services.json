@@ -7,7 +7,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:428260765707:android:7cc0ac4c37c5bd5b5d170e",
+        "mobilesdk_app_id": "1:428260765707:android:5f71efb7c8ecd1995d170e",
         "android_client_info": {
           "package_name": "xyz.trackmymoney.trackmymoney"
         }
@@ -22,7 +22,7 @@
           }
         },
         {
-          "client_id": "428260765707-a4h0cimp8d5leak29g0adkpa76bhkpv6.apps.googleusercontent.com",
+          "client_id": "428260765707-19ko0nj0j6a6qefd1d41af702noa8te1.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -35,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "428260765707-a4h0cimp8d5leak29g0adkpa76bhkpv6.apps.googleusercontent.com",
+              "client_id": "428260765707-19ko0nj0j6a6qefd1d41af702noa8te1.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

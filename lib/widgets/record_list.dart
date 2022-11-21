@@ -78,7 +78,7 @@ class _RecordListState extends State<RecordList> {
                   ),
                   TextButton.icon(
                     icon: const Icon(Icons.filter_list),
-                    label: const Text("Filter"),
+                    label: const Text("List filters"),
                     onPressed: () {
                       showDialog(
                           context: context,

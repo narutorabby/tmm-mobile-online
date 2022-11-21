@@ -53,21 +53,21 @@ class _DailyIncomeExpenseState extends State<DailyIncomeExpense> {
                     children: const <Widget>[
                       Text(
                         'Daily income expense',
-                        style: TextStyle(color: Colors.white, fontSize: 22),
+                        style: TextStyle(fontSize: 22),
                       ),
                       SizedBox(
                         width: 4,
                       ),
                       Flexible(
                         child: Text(
-                          'last 10 days',
+                          'Last 10 days',
                           style: TextStyle(color: Color(0xff77839a), fontSize: 16),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
                   Expanded(
                     child: BarChart(
