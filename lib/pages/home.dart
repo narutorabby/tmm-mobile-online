@@ -159,8 +159,10 @@ class _HomeState extends State<Home> {
         )
       ),
       floatingActionButton: FloatingActionButton.extended(
-        icon: const Icon(FontAwesomeIcons.google),
-        label: const Text("Continue with Google", style: TextStyle(fontSize: 16)),
+        backgroundColor: Helpers.colorFromHex("#4285F4FF"),
+        foregroundColor: Colors.white,
+        icon: Image.asset("assets/images/btn_google_light.png", height: 32,),
+        label: const Text("Sign in with Google", style: TextStyle(fontSize: 16)),
         onPressed: googleToken,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
@@ -172,10 +174,10 @@ class _HomeState extends State<Home> {
       result?.authentication.then((googleKey){
         signin(googleKey.accessToken);
       }).catchError((err){
-        Helpers.showToast(fToast, "error", "Could not signed up via Google!");
+        Helpers.showToast(fToast, "error", "Could not signed in via Google!");
       });
     }).catchError((err){
-      Helpers.showToast(fToast, "error", "Could not signed up via Google!");
+      Helpers.showToast(fToast, "error", "Could not signed in via Google!");
     });
   }
 
