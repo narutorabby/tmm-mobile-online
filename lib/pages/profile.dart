@@ -223,6 +223,6 @@ class _ProfileState extends State<Profile> {
 
   Future<void> signOut() async {
     await LocalStorage.deleteAllStorageData();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Home()));
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const Home()), (route) => false);
   }
 }
