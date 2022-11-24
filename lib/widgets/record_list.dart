@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -5,7 +7,9 @@ import 'package:trackmymoney/models/basic_response.dart';
 import 'package:trackmymoney/models/group.dart';
 import 'package:trackmymoney/models/record.dart';
 import 'package:trackmymoney/models/record_paginated.dart';
+import 'package:trackmymoney/models/user.dart';
 import 'package:trackmymoney/services/api_manager.dart';
+import 'package:trackmymoney/services/local_storage.dart';
 import 'package:trackmymoney/widgets/record_create_edit.dart';
 import 'package:trackmymoney/widgets/record_filter.dart';
 import 'package:trackmymoney/widgets/record_list_item.dart';
@@ -33,6 +37,8 @@ class _RecordListState extends State<RecordList> {
   late bool loadingMore;
 
   late Group group;
+
+  late User currentUser;
 
   @override
   void initState() {
@@ -115,7 +121,7 @@ class _RecordListState extends State<RecordList> {
                       ),
                     );
                   }
-                  return RecordListItem(record: records[index], responseAction: resetFilters, group: widget.isGroup ? group : null);
+                  return RecordListItem(currentUser: currentUser, record: records[index], responseAction: resetFilters, group: widget.isGroup ? group : null);
                 },
                 itemCount: records.length + 1,
               ),
@@ -124,6 +130,7 @@ class _RecordListState extends State<RecordList> {
         ),
       ),
       floatingActionButton: SpeedDial(
+        visible: (!pageLoading && (!widget.isGroup || (widget.isGroup && group.admin!.id == currentUser.id))),
         icon: Icons.add,
         activeIcon: Icons.close,
         elevation: 10,
@@ -150,12 +157,18 @@ class _RecordListState extends State<RecordList> {
     );
   }
 
-  void initAction() {
-    if(widget.isGroup) {
-      groupDetails();
-    }
-    else {
-      getRecords();
+  Future<void> initAction() async {
+    String? currentSession = await LocalStorage.getStorageData("current_session");
+    if(currentSession != null){
+      setState(() {
+        currentUser = User.fromJson(jsonDecode(currentSession));
+      });
+      if(widget.isGroup) {
+        groupDetails();
+      }
+      else {
+        getRecords();
+      }
     }
   }
 

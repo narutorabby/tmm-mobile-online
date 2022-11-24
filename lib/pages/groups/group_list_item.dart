@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:trackmymoney/models/group.dart';
+import 'package:trackmymoney/models/user.dart';
 import 'package:trackmymoney/pages/group_members.dart';
 import 'package:trackmymoney/pages/group_records.dart';
-import 'package:trackmymoney/services/helpers.dart';
 import 'package:trackmymoney/pages/groups/group_create_edit.dart';
 
 class GroupListItem extends StatefulWidget {
   final Group group;
+  final User user;
   final Function responseAction;
 
-  const GroupListItem({Key? key, required this.group, required this.responseAction}) : super(key: key);
+  const GroupListItem({Key? key, required this.group, required this.user, required this.responseAction}) : super(key: key);
 
   @override
   State<GroupListItem> createState() => _GroupListItemState();
@@ -76,18 +77,21 @@ class _GroupListItemState extends State<GroupListItem> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  OutlinedButton(
-                    child: const Text("Edit"),
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return GroupCreateEdit(group: widget.group, responseAction: widget.responseAction, edit: true);
-                          }
-                      );
-                    },
+                  Visibility(
+                    visible: widget.group.admin!.id == widget.user.id,
+                    child: OutlinedButton(
+                      child: const Text("Edit"),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return GroupCreateEdit(group: widget.group, responseAction: widget.responseAction, edit: true);
+                            }
+                        );
+                      },
+                    ),
                   ),
                   const SizedBox(width: 20),
                   OutlinedButton(

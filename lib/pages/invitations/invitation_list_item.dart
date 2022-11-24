@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:trackmymoney/models/invitation.dart';
+import 'package:trackmymoney/models/user.dart';
 import 'package:trackmymoney/pages/invitations/invitation_action.dart';
 
 class InvitationListItem extends StatefulWidget {
+
+  final User currentUser;
   final Invitation invitation;
   final Function responseAction;
 
-  const InvitationListItem({Key? key, required this.invitation, required this.responseAction}) : super(key: key);
+  const InvitationListItem({Key? key, required this.currentUser, required this.invitation, required this.responseAction}) : super(key: key);
 
   @override
   State<InvitationListItem> createState() => _InvitationListItemState();
@@ -56,10 +59,10 @@ class _InvitationListItemState extends State<InvitationListItem> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text("GROUP"),
+                        const Text("TYPE"),
                         const SizedBox(height: 10),
                         Text(
-                          widget.invitation.group!.name,
+                          (widget.invitation.userId == widget.currentUser.id) ? "Received" : "Sent",
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600
@@ -72,10 +75,10 @@ class _InvitationListItemState extends State<InvitationListItem> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Text("USER"),
+                        Text((widget.invitation.userId == widget.currentUser.id) ? "FROM" : "TO"),
                         const SizedBox(height: 10),
                         Text(
-                          widget.invitation.user!.name,
+                          (widget.invitation.userId == widget.currentUser.id) ? widget.invitation.group!.admin!.name : widget.invitation.user!.name,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600

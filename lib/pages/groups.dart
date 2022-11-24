@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:trackmymoney/models/basic_response.dart';
 import 'package:trackmymoney/models/group.dart';
+import 'package:trackmymoney/models/user.dart';
 import 'package:trackmymoney/services/api_manager.dart';
 import 'package:trackmymoney/pages/groups/group_create_edit.dart';
 import 'package:trackmymoney/pages/groups/group_list_item.dart';
+import 'package:trackmymoney/services/helpers.dart';
+import 'package:trackmymoney/services/local_storage.dart';
 
 class Groups extends StatefulWidget {
   const Groups({Key? key}) : super(key: key);
@@ -17,10 +22,11 @@ class _GroupsState extends State<Groups> with TickerProviderStateMixin {
 
   bool pageLoading = true;
   List<Group> groups = [];
+  late User user;
 
   @override
   void initState() {
-    getGroups();
+    getUser();
     super.initState();
   }
 
@@ -61,7 +67,7 @@ class _GroupsState extends State<Groups> with TickerProviderStateMixin {
                       ),
                     );
                   }
-                  return GroupListItem(group: groups[index], responseAction: getGroups);
+                  return GroupListItem(group: groups[index], user: user, responseAction: getGroups);
                 },
                 itemCount: groups.length + 1,
               ),
@@ -83,6 +89,16 @@ class _GroupsState extends State<Groups> with TickerProviderStateMixin {
         },
       )
     );
+  }
+
+  Future<void> getUser() async {
+    String? currentSession = await LocalStorage.getStorageData("current_session");
+    if(currentSession != null){
+      setState(() {
+        user = User.fromJson(jsonDecode(currentSession));
+      });
+      getGroups();
+    }
   }
 
   Future<void> getGroups() async {

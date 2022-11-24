@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:trackmymoney/models/basic_response.dart';
 import 'package:trackmymoney/models/invitation.dart';
+import 'package:trackmymoney/models/user.dart';
 import 'package:trackmymoney/services/api_manager.dart';
 import 'package:trackmymoney/pages/invitations/invitation_list_item.dart';
+import 'package:trackmymoney/services/local_storage.dart';
 
 class Invitations extends StatefulWidget {
   const Invitations({Key? key}) : super(key: key);
@@ -16,10 +20,11 @@ class _InvitationsState extends State<Invitations> {
 
   bool pageLoading = true;
   List<Invitation> invitations = [];
+  late User user;
   
   @override
   void initState() {
-    getInvitations();
+    getUser();
     super.initState();
   }
 
@@ -60,7 +65,7 @@ class _InvitationsState extends State<Invitations> {
                       ),
                     );
                   }
-                  return InvitationListItem(invitation: invitations[index], responseAction: getInvitations);
+                  return InvitationListItem(currentUser: user, invitation: invitations[index], responseAction: getInvitations);
                 },
                 itemCount: invitations.length + 1,
               ),
@@ -69,6 +74,16 @@ class _InvitationsState extends State<Invitations> {
         ),
       )
     );
+  }
+
+  Future<void> getUser() async {
+    String? currentSession = await LocalStorage.getStorageData("current_session");
+    if(currentSession != null){
+      setState(() {
+        user = User.fromJson(jsonDecode(currentSession));
+      });
+      getInvitations();
+    }
   }
 
   Future<void> getInvitations() async {

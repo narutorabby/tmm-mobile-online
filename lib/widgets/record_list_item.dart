@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:trackmymoney/models/group.dart';
 import 'package:trackmymoney/models/record.dart';
+import 'package:trackmymoney/models/user.dart';
 import 'package:trackmymoney/services/helpers.dart';
 import 'package:trackmymoney/widgets/record_create_edit.dart';
 
 class RecordListItem extends StatefulWidget {
 
+  final User currentUser;
   final Group? group;
   final Record record;
   final Function responseAction;
 
-  const RecordListItem({Key? key, this.group, required this.record, required this.responseAction}) : super(key: key);
+  const RecordListItem({Key? key, required this.currentUser, this.group, required this.record, required this.responseAction}) : super(key: key);
 
   @override
   State<RecordListItem> createState() => _RecordListItemState();
@@ -26,20 +28,22 @@ class _RecordListItemState extends State<RecordListItem> {
       elevation: 1,
       child: InkWell(
         onTap: () {
-          showDialog(
-            context: context,
-            barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return RecordCreateEdit(
-                type: widget.record.type,
-                responseAction: widget.responseAction,
-                record: widget.record,
-                group: widget.group,
-                edit: true,
-              );
-            }
-          );
+          if(widget.group == null || (widget.group != null && widget.group!.admin!.id == widget.currentUser.id)) {
+            showDialog(
+                context: context,
+                barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  return RecordCreateEdit(
+                    type: widget.record.type,
+                    responseAction: widget.responseAction,
+                    record: widget.record,
+                    group: widget.group,
+                    edit: true,
+                  );
+                }
+            );
+          }
         },
         child: Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
